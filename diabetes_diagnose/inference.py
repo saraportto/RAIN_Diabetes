@@ -1,5 +1,5 @@
 from pgmpy.inference import VariableElimination
-from diabetes import model  # Importamos el modelo desde diabetes.py
+from diabetes_model import model  # Importamos el modelo desde diabetes_model.py
 
 # Crear el motor de inferencia
 infer = VariableElimination(model)
