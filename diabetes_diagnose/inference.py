@@ -1,10 +1,11 @@
 from pgmpy.inference import VariableElimination
+from diabetes import model  # Importamos el modelo desde diabetes.py
 
-# Cargamos el motor de inferencia
+# Crear el motor de inferencia
 infer = VariableElimination(model)
 
-# Supongamos que queremos predecir si una persona mayor (Edad=2), con glucosa alta (NivelGlucosa=1) y IMC alto (IMC=2) tiene diabetes
+# Proporcionamos evidencia: persona mayor (Edad=2), glucosa alta (NivelGlucosa=1), IMC alto (IMC=2)
 evidence = {'Edad': 2, 'NivelGlucosa': 1, 'IMC': 2}
 resultado = infer.map_query(variables=['Diabetes'], evidence=evidence)
 
-print(f"Resultado de la inferencia para los datos de prueba: {resultado}")
+print(f"Resultado de la inferencia: {resultado}")
