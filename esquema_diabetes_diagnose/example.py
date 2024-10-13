@@ -1,18 +1,25 @@
-import pandas as pd
-import numpy as np
+### GENERAR DATASET FICTICIO DE EJEMPLO
 
-# Generamos un dataset ficticio con variables relacionadas con el diagnóstico de diabetes
-np.random.seed(42)  # Para que los resultados sean reproducibles
+# Imports
+import pandas as pd # Para trabajar con dataframe y csv
+import numpy as np # Para generar aleatorios
 
-# Simulamos variables: edad, nivel de glucosa, IMC y diabetes (sí/no)
-data = pd.DataFrame({
-    'Edad': np.random.choice([0, 1, 2], size=10000000),  # 0: joven, 1: adulto, 2: mayor
-    'NivelGlucosa': np.random.choice([0, 1], size=10000000),  # 0: bajo, 1: alto
-    'IMC': np.random.choice([0, 1, 2], size=10000000),  # 0: bajo, 1: normal, 2: alto
-    'Diabetes': np.random.choice([0, 1], size=10000000)  # 0: no, 1: sí
-})
+# Semilla aleatoria (para que sean siempre los mismos resultados)
+np.random.seed(42)
 
-# Guardamos el dataset simulado en un archivo CSV
-data.to_csv('data.csv', index=False)
+def create_example(instances, filename):
+    # Crear dataframe de pandas, con los parámetros
+    # el array de números son las opciones del parámetro 
+    # size es el número de muestras
+    data = pd.DataFrame({
+        'Edad': np.random.choice([0, 1, 2], size=instances),  # 0: joven, 1: adulto, 2: mayor
+        'NivelGlucosa': np.random.choice([0, 1], size=instances),  # 0: bajo, 1: alto
+        'IMC': np.random.choice([0, 1, 2], size=instances) #,  # 0: bajo, 1: normal, 2: alto
+        #'Diabetes': np.random.choice([0, 1], size=10000000)  # 0: no, 1: sí
+    })
 
-print("Dataset de ejemplo generado y guardado como 'data.csv'.")
+    # Pasar el dataframe de pandas a CSV
+    data.to_csv(filename, index=False)
+
+    # Imprimir mensaje de comprobación
+    print("Dataset de ejemplo generado y guardado como 'data.csv'.")
