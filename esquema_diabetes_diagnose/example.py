@@ -7,7 +7,7 @@ import numpy as np # Para generar aleatorios
 # Semilla aleatoria (para que sean siempre los mismos resultados)
 np.random.seed(42)
 
-def create_example(instances, filename):
+def create_csv(instances, filename):
     # Crear dataframe de pandas, con los parámetros
     # el array de números son las opciones del parámetro 
     # size es el número de muestras

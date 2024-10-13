@@ -1,10 +1,9 @@
 import pandas as pd 
 from pgmpy.inference import VariableElimination
-from diabetes_model import model  # Importamos el modelo desde diabetes_model.py
 
 
 # OPCIÓN 1: HACER UN EJEMPLO CONCRETO
-def inference_example(age, gluc, imc):
+def inference_example(model, age, gluc, imc):
     # Crear el motor de inferencia
     infer = VariableElimination(model)  
 
@@ -16,7 +15,7 @@ def inference_example(age, gluc, imc):
 
 
 # OPCIÓN 2: LEER DE UN CSV CONCRETO
-def inference_csv(filename):
+def inference_csv(model, filename):
     # Crear el motor de inferencia
     infer = VariableElimination(model)  
 
