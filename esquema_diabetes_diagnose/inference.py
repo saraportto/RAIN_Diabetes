@@ -3,12 +3,12 @@ from pgmpy.inference import VariableElimination
 
 
 # OPCIÓN 1: HACER UN EJEMPLO CONCRETO
-def inference_example(model, age, gluc, imc):
+def inference_example(model, [age, gluc, imc]):
     # Crear el motor de inferencia
     infer = VariableElimination(model)  
 
     # Proporcionamos evidencia: persona mayor (Edad=2), glucosa alta (NivelGlucosa=1), IMC alto (IMC=2)
-    evidence = {'Edad': age, 'NivelGlucosa': age, 'IMC': age}
+    evidence = {'Edad': age, 'NivelGlucosa': gluc, 'IMC': imc}
     resultado = infer.query(variables=['Diabetes'], evidence=evidence)
 
     print(f"Resultado de la inferencia: {resultado}")

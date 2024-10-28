@@ -4,7 +4,6 @@
 from pgmpy.models import BayesianNetwork 
 from pgmpy.factors.discrete import TabularCPD
 
-
 # Probabilidades condicionales (CPDs), para cada parámetro relacionado con la diabetes
 # Qué probabilidad hay de que alguien sea...
 cpd_edad = TabularCPD(variable='Edad', variable_card=3, values=[[0.3], [0.5], [0.2]])  # Probabilidad de ser joven/adulto/mayor
