@@ -24,7 +24,7 @@ class Quiz:
 
     def do_initial_quiz(self):
         conseq_diseases = (
-            "*Hipertensión\n *Visión borrosa, cuerpos flotantes en la vista, zonas de visión oscura o pérdida de la capacidad visual\n"
+            "*Hipertensión\n *Visión borrosa, cuerpos flotantes en la vista, zonas de visión oscura o pérdida de la capacidad visual\n "
             "*Patologías cardiovasculares\n *Apnea del sueño\n *Afecciones de la piel (Infecciones cutáneas, acantosis pigmentaria, necrobiosis lipoídica)\n"
         )
         meds = (
@@ -40,7 +40,7 @@ class Quiz:
         weight = self.get_float_input("\n*******************\n❓ ¿Cuál es su peso? (en kg): ")
         height = self.get_float_input("\n*******************\n❓ ¿Cuál es su altura? (en cm): ")
 
-        bmi = weight / ((height / 100) ** 2)
+        bmi = weight / ((height / 100) ** 2) # 0: bajopeso/normal (<25); 1: sobrepeso(25-29.9); 2: obesidad: (+30)
 
         print("\n*******************\n❓ ¿Ha tomado alguno de los siguientes medicamentos?: \n", meds)
         drugs = self.get_int_input("\n 0 = no\n 1 = si\n>>RESPUESTA MEDICAMENTOS: ", [0, 1])
@@ -50,10 +50,10 @@ class Quiz:
         pregnancies = self.get_int_input("\n*******************\n❓ ¿Ha tenido 3 o más embarazos? \n 0 = no\n 1 = si\n>>RESPUESTA EMBARAZOS: ", [0, 1])
         family_history = self.get_int_input("\n*******************\n❓ ¿Hay antecedentes de diabetes en su familia? \n 0 = no\n 1 = si\n>>RESPUESTA ANTECEDENTES: ", [0, 1])
 
-        urinate_freq = self.get_int_input("\n*******************\n❓ ¿Siente con mucha frecuencia ganas de orinar? \n 0 = no\n 1 = si\n>>RESPUESTA FRECUENCIA ORINAR: ", [0, 1])
-        thirst = self.get_int_input("\n*******************\n❓ ¿Siente con mucha frecuencia ganas de beber agua? \n 0 = no\n 1 = si\n>>RESPUESTA FRECUENCIA BEBER: ", [0, 1])
-        fatigue = self.get_int_input("\n*******************\n❓ ¿Se siente fatigado con mucha frecuencia? \n 0 = no\n 1 = si\n>>RESPUESTA FATIGA: ", [0, 1])
-        hunger = self.get_int_input("\n*******************\n❓ ¿Siente con mucha frecuencia hambre? \n 0 = no\n 1 = si\n>>RESPUESTA HAMBRE: ", [0, 1])
+        urinate_freq = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente ganas de orinar? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>RESPUESTA FRECUENCIA ORINAR: ", [0, 1])
+        thirst = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente ganas de beber agua? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA FRECUENCIA BEBER: ", [0, 1])
+        fatigue = self.get_int_input("\n*******************\n❓ ¿on qué frecuencia siente fatiga? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA FATIGA: ", [0, 1])
+        hunger = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente hambre? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA HAMBRE: ", [0, 1])
         weight_loss = self.get_int_input("\n*******************\n❓ ¿Ha tenido alguna pérdida de peso inexplicada? \n 0 = no\n 1 = si\n>>RESPUESTA PÉRDIDA DE PESO: ", [0, 1])
 
         print("\n*******************\n❓ ¿Ha padecido recientemente o padece alguna de las siguientes enfermedades?: ", "\n", conseq_diseases)
