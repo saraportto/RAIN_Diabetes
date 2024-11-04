@@ -78,9 +78,9 @@ class Quiz:
         return res
 
     def do_clinical_quiz(self, initial_res: dict):
-        glucose = self.get_int_input("💊 ¿A? (1 = sí, 0 = no): ", [0, 1])
-        blood_pressure = self.get_int_input("💊 ¿A? (1 = sí, 0 = no): ", [0, 1])
-        
+        glucose = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL): ")
+        blood_pressure = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de presión sanguínea? (en mmHg): ")
+
         res = {
             'glucose': glucose,
             'blood_pressure': blood_pressure
