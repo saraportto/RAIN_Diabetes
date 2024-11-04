@@ -16,7 +16,7 @@ class diabetesInference:
         ]
 
         # Añadir claves clínicas cuando se reciba quiz clínico
-        if len(evidence_vals) > 14:
+        if len(evidence_vals) > 10:
             evidence_keys += ['glucose', 'blood_pressure']
 
         # Combinar respuestas y claves

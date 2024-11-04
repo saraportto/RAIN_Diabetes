@@ -15,7 +15,7 @@ class diabetesModel:
 
         ### Añadir NODOS al modelo ###
         nodes = [
-            'sex', 'age', 'bmi', 'drugs', 'pancreas_diseases', 'pancreas_injury', 'pregnancies', 'family_history', 
+            'age', 'bmi', 'pancreas_diseases', 'family_history', 
             'diabetes', 
             'urinate_freq', 'thirst', 'fatigue', 'hunger', 'weight_loss', 'sympt_diseases'
         ]
@@ -23,13 +23,9 @@ class diabetesModel:
 
         ### Añadir ARCOS al modelo ###
         edges = [
-            ('sex', 'diabetes'), 
             ('age', 'diabetes'), 
             ('bmi', 'diabetes'), 
-            ('drugs', 'diabetes'), 
             ('pancreas_diseases', 'diabetes'), 
-            ('pancreas_injury', 'diabetes'),
-            ('pregnancies', 'diabetes'), 
             ('family_history', 'diabetes'), 
             ('diabetes', 'urinate_freq'), 
             ('diabetes', 'thirst'), 
@@ -40,16 +36,14 @@ class diabetesModel:
         ]
         model.add_edges_from(edges)
 
+
         ### Añadir CPDs al modelo###
-        # Probabilidades a priori de FACTORES DE RIESGO
-        cpd_sex = TabularCPD(variable='sex', variable_card=2, values=[[0.5], [0.5]])
-        cpd_age = TabularCPD(variable='age', variable_card=4, values=[[0.25], [0.25], [0.25], [0.25]])
-        cpd_bmi = TabularCPD(variable='bmi', variable_card=3, values=[[0.33], [0.33], [0.34]])
-        cpd_drugs = TabularCPD(variable='drugs', variable_card=2, values=[[0.8], [0.2]])
-        cpd_pancreas_diseases = TabularCPD(variable='pancreas_diseases', variable_card=2, values=[[0.9], [0.1]])
-        cpd_pancreas_injury = TabularCPD(variable='pancreas_injury', variable_card=2, values=[[0.95], [0.05]])
-        cpd_pregnancies = TabularCPD(variable='pregnancies', variable_card=2, values=[[0.7], [0.3]])
-        cpd_family_history = TabularCPD(variable='family_history', variable_card=2, values=[[0.6], [0.4]])
+        
+        # Probabilidades a priori de FACTORES DE RIESGO (a priori)
+        cpd_age = TabularCPD(variable='age', variable_card=2, values=[[0.6], [0.4]])
+        cpd_bmi = TabularCPD(variable='bmi', variable_card=3, values=[[0.55], [0.37], [0.18]])
+        cpd_pancreas_diseases = TabularCPD(variable='pancreas_diseases', variable_card=2, values=[[0.99], [ 0.01]])
+        cpd_family_history = TabularCPD(variable='family_history', variable_card=2, values=[[0.8], [0.2]])
 
         # Leer el archivo CSV para las probabilidades de diabetes
         df = pd.read_csv("diabetes_probabilities.csv")
@@ -59,8 +53,8 @@ class diabetesModel:
             variable='diabetes', 
             variable_card=2,
             values=df[['prob_diabetes_0', 'prob_diabetes_1']].values.T.tolist(),
-            evidence=['sex', 'age', 'bmi', 'drugs', 'pancreas_diseases', 'pancreas_injury', 'pregnancies', 'family_history'],
-            evidence_card=[2, 4, 3, 2, 2, 2, 2, 2]
+            evidence=['age', 'bmi', 'pancreas_diseases', 'family_history'],
+            evidence_card=[2, 3, 2, 2]
         )
 
         # CPD para SÍNTOMAS
@@ -136,9 +130,9 @@ class diabetesModel:
 
         # Añadir CPDS al modelo
         model.add_cpds(
-            cpd_sex, cpd_age, cpd_bmi, cpd_drugs, cpd_pancreas_diseases, 
-            cpd_pancreas_injury, cpd_pregnancies, cpd_family_history, 
-            cpd_diabetes, cpd_urinate_freq, cpd_thirst, cpd_fatigue, 
+            cpd_age, cpd_bmi, cpd_pancreas_diseases, cpd_family_history, 
+            cpd_diabetes, 
+            cpd_urinate_freq, cpd_thirst, cpd_fatigue, 
             cpd_hunger, cpd_weight_loss, cpd_sympt_diseases
         )
 
