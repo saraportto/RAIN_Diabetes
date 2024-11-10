@@ -11,7 +11,7 @@ class diabetesInference:
     # Inferencia cuando se reciben respuestas de un quiz
     def inference_example(self, evidence_vals: list):
         evidence_keys = [
-            'sex', 'age', 'bmi', 'drugs', 'pancreas_diseases', 'pancreas_injury', 'pregnancies', 'family_history', 
+            'age', 'bmi', 'pancreas_diseases','family_history', 
             'urinate_freq', 'thirst', 'fatigue', 'hunger', 'weight_loss', 'sympt_diseases'
         ]
 
@@ -21,9 +21,10 @@ class diabetesInference:
 
         # Combinar respuestas y claves
         evidence = dict(zip(evidence_keys, evidence_vals))
+        print("Evidencia para inferencia:", evidence)
 
         ### INFERENCIA ###
-        resultado = self.infer.query(variables=['diabetes'], evidence=evidence)
+        resultado = self.inference.query(variables=['diabetes'], evidence=evidence)
         
         # Probabilidad de TENER DIABETES
         return resultado.values[1]

@@ -44,8 +44,17 @@ class Quiz:
 
         weight = self.get_float_input("\n*******************\n❓ ¿Cuál es su peso? (en kg): ")
         height = self.get_float_input("\n*******************\n❓ ¿Cuál es su altura? (en cm): ")
+        
+        bmi_value = weight / ((height / 100) ** 2)
 
-        bmi = weight / ((height / 100) ** 2) # 0: bajopeso/normal (<25); 1: sobrepeso(25-29.9); 2: obesidad: (+30)
+        # Categorizar el BMI según el valor calculado
+        if bmi_value < 25:
+            bmi = 0  # Bajo peso / Normal
+        elif 25 <= bmi_value < 30:
+            bmi = 1  # Sobrepeso
+        else:
+            bmi = 2  # Obesidad
+        
 
         pancreas_diseases = self.get_int_input("\n*******************\n❓ ¿Ha padecido alguna enfermedad o lesión grave del páncreas?\n 0 = no\n 1 = si\n>>RESPUESTA ENFERMEDADES PÁNCREAS: ", [0, 1])
         family_history = self.get_int_input("\n*******************\n❓ ¿Hay antecedentes de diabetes en su familia (padre/madre)? \n 0 = no\n 1 = si\n>>RESPUESTA ANTECEDENTES: ", [0, 1])
@@ -78,9 +87,25 @@ class Quiz:
 
 
     def do_clinical_quiz(self, initial_res: dict):
-        glucose = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL): ")
-        blood_pressure = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de presión sanguínea? (en mmHg): ")
+        glucose_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL): ")
 
+        if glucose_level < 100:
+            glucose = 0  # Normal
+        elif 100 <= glucose_level <= 125:
+            glucose = 1  # Prediabetes
+        else:
+            glucose = 2  # Diabetes
+
+
+        blood_pressure_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de presión sanguínea? (en mmHg): ")
+
+        # Clasificación de presión sanguínea
+        if blood_pressure_level < 120:
+            blood_pressure = 0  # Normal
+        else:
+            blood_pressure = 1  # Hipertensión
+
+       
         res = {
             'glucose': glucose,
             'blood_pressure': blood_pressure
