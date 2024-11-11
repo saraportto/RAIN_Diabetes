@@ -6,7 +6,8 @@ import time
 
 if __name__ == '__main__':
 
-    # Parte INICIAL DEL DIAGNÓSTICO (basado en síntomas y factores de riesgo)
+    ### Parte INICIAL del diagnóstico (basado en síntomas y factores de riesgo) ###
+    # QUIZ inicial
     quiz = Quiz()
     res = quiz.do_initial_quiz()
     #print(res)
@@ -23,12 +24,13 @@ if __name__ == '__main__':
     print("PROBABILIDAD DE TENER DIABETES:\n", prob_diabetes_inicial)
     print("-----------------------------------")
 
+    ### SEGUNDA PARTE del diagnóstico (añadiendo test clínico) ###
     if prob_diabetes_inicial > 0.3:
+
         time.sleep(1)
         print("\nLos resultados del cuestionario que hay una probabilidad considerable de tener diabetes.")
         print("Es necesario hacer un examen médico.\n")
 
-        # Espera de 0,2 segundos
         time.sleep(0.2)
         print("Recogiendo muestras", end="")
 
@@ -37,14 +39,14 @@ if __name__ == '__main__':
             time.sleep(0.5)
         print("\n")
 
-        # Hacer el QUIZ CLÍNICO
+        # QUIZ clínico
         clinical_res = quiz.do_clinical_quiz(res)
         #print("Resultados del quiz clínico:", clinical_res)
 
         # Crear el MODELO CLÍNICO 
         clinical_model = diabetesModel().create_clinical_model()
 
-        # COMBINAR evidencia inicial con la clínica. Evidence se convierte en una lista paea que se puede juntar con clinical_res
+        # COMBINAR evidencia inicial con la clínica
         clinical_evidence = clinical_res.values()
         complete_evidence = list(evidence) + list(clinical_evidence)
 
@@ -52,10 +54,9 @@ if __name__ == '__main__':
         clinical_inference = diabetesInference(clinical_model)
         prob_diabetes_final = clinical_inference.inference_example(complete_evidence)
         
-        # IMPRIMIR nueva probabilida
         print("\n\n-----------------------------------")
         print("PROBABILIDAD DE TENER DIABETES\n(con el test clínico):\n", prob_diabetes_final)    
         print("-----------------------------------")
 
-    else:
+    else: # Si la probabilidad de tener diabetes no es significativa
         print ("\nLa probabilidad de que tenga diabetes es baja, no es necesario hacer ningún test clínico.")

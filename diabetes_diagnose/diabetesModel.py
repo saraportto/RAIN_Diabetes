@@ -3,14 +3,10 @@ from pgmpy.factors.discrete import TabularCPD
 import pandas as pd
 
 class diabetesModel:
-    
-    def __init__(self):
-        pass
-    
 
-    # Modelo inicial, en base a Red Bayesiana 1
+    ### MODELO INICIAL, en base a Red Bayesiana 1
     def create_initial_model(self):
-        ### MODELO VACÍO ###
+        ## MODELO VACÍO ##
         model = BayesianNetwork()
 
         ### Añadir NODOS al modelo ###
@@ -21,7 +17,7 @@ class diabetesModel:
         ]
         model.add_nodes_from(nodes)
 
-        ### Añadir ARCOS al modelo ###
+        ## Añadir ARCOS al modelo ##
         edges = [
             ('age', 'diabetes'), 
             ('bmi', 'diabetes'), 
@@ -37,19 +33,17 @@ class diabetesModel:
         model.add_edges_from(edges)
 
 
-        ### Añadir CPDs al modelo###
+        ## Añadir CPDs al modelo##
         
-        # Probabilidades a priori de FACTORES DE RIESGO (a priori)
+        # Probabilidades a PRIORI de FACTORES DE RIESGO
         cpd_age = TabularCPD(variable='age', variable_card=2, values=[[0.6], [0.4]])
         cpd_bmi = TabularCPD(variable='bmi', variable_card=3, values=[[0.55], [0.37], [0.08]])
         cpd_pancreas_diseases = TabularCPD(variable='pancreas_diseases', variable_card=2, values=[[0.99], [ 0.01]])
         cpd_family_history = TabularCPD(variable='family_history', variable_card=2, values=[[0.8], [0.2]])
 
-        # Leer el archivo CSV para las probabilidades de diabetes
+        # CPD para DIABETES (con el CSV con sus probabilidades)
         df = pd.read_csv("diabetes_probabilities.csv")
 
-
-        # CPD para DIABETES (con el CSV)
         cpd_diabetes = TabularCPD(
             variable='diabetes', 
             variable_card=2,
@@ -63,9 +57,9 @@ class diabetesModel:
             variable='urinate_freq', 
             variable_card=3, 
             values=[
-                [0.6, 0.2],  # P(urinate_freq=0 | diabetes=0) y P(urinate_freq=0 | diabetes=1)
-                [0.3, 0.3],  # P(urinate_freq=1 | diabetes=0) y P(urinate_freq=1 | diabetes=1)
-                [0.1, 0.5]   # P(urinate_freq=2 | diabetes=0) y P(urinate_freq=2 | diabetes=1)
+                [0.6, 0.2],  # P(uf=0 | diabetes=0) y P(uf=0 | diabetes=1)
+                [0.3, 0.3],  # P(uf=1 | diabetes=0) y P(uf=1 | diabetes=1)
+                [0.1, 0.5]   # P(uf=2 | diabetes=0) y P(uf=2 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -75,9 +69,9 @@ class diabetesModel:
             variable='thirst', 
             variable_card=3, 
             values=[
-                [0.7, 0.3],  
-                [0.2, 0.4],  
-                [0.1, 0.3]   
+                [0.7, 0.3],   # P(thirst=0 | diabetes=0) y P(thirst=0 | diabetes=1)
+                [0.2, 0.4],   # P(thirst=1 | diabetes=0) y P(thirst=1 | diabetes=1)
+                [0.1, 0.3]    # P(thirst=2 | diabetes=0) y P(thirst=2 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -87,9 +81,9 @@ class diabetesModel:
             variable='fatigue', 
             variable_card=3, 
             values=[
-                [0.5, 0.2],  
-                [0.3, 0.3],  
-                [0.2, 0.5]   
+                [0.5, 0.2],  # P(fatigue=0 | diabetes=0) y P(fatigue=0 | diabetes=1)
+                [0.3, 0.3],  # P(fatigue=1 | diabetes=0) y P(fatigue=1 | diabetes=1)
+                [0.2, 0.5]   # P(fatigue=2 | diabetes=0) y P(fatigue=2 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -99,9 +93,9 @@ class diabetesModel:
             variable='hunger', 
             variable_card=3, 
             values=[
-                [0.6, 0.3],  
-                [0.3, 0.4],  
-                [0.1, 0.3]   
+                [0.6, 0.3],  # P(hunger=0 | diabetes=0) y P(hunger=0 | diabetes=1)
+                [0.3, 0.4],  # P(hunger=1 | diabetes=0) y P(hunger=1 | diabetes=1)
+                [0.1, 0.3]   # P(hunger=2 | diabetes=0) y P(hunger=2 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -111,8 +105,8 @@ class diabetesModel:
             variable='weight_loss', 
             variable_card=2, 
             values=[
-                [0.8, 0.3],  
-                [0.2, 0.7]   
+                [0.8, 0.3],  # P(wl=0 | diabetes=0) y P(wl=0 | diabetes=1)
+                [0.2, 0.7]   # P(wl=1 | diabetes=0) y P(wl=1 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -122,8 +116,8 @@ class diabetesModel:
             variable='sympt_diseases', 
             variable_card=2, 
             values=[
-                [0.9, 0.4],  
-                [0.1, 0.6]   
+                [0.9, 0.4],  # P(sd=0 | diabetes=0) y P(sd=0 | diabetes=1)
+                [0.1, 0.6]   # P(sd=1 | diabetes=0) y P(sd=1 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
@@ -137,27 +131,29 @@ class diabetesModel:
             cpd_hunger, cpd_weight_loss, cpd_sympt_diseases
         )
 
-        # COMPROBAR MODELO
+        # Comprobar modelo
         assert model.check_model()
 
         return model
 
 
-    #aqui añadi lo mismo de lo anterior pero para glucosa y presion sanfuiena, se reite 2 veces
+    ### MODELO INICIAL, en base a Red Bayesiana 2
     def create_clinical_model(self):
+
+        # Red Bayesiana 1 como base para la Red Bayesiana 2
         clinical_model = self.create_initial_model()
 
-        # Añadir los nodos de glucosa y presión arterial
+        # Añadir los NODS de glucosa y presión arterial
         nodes =['glucose', 'blood_pressure']
         clinical_model.add_nodes_from(nodes)
 
-        # Añadir arcos
+        # Añadir ARCOS de quiz clínico
         edges = [('diabetes', 'glucose'),  # Relación entre diabetes y glucosa
                  ('diabetes', 'blood_pressure')  # Relación entre diabetes y presión sanguínea
                 ]
         clinical_model.add_edges_from(edges)
         
-        # Añadir CPDs restantes
+        # Añadir CPDs de quiz clínico
         # CPD glucosa en sangre    
         cpd_glucose = TabularCPD(
             variable='glucose', 
@@ -176,19 +172,19 @@ class diabetesModel:
             variable='blood_pressure', 
             variable_card=2, 
             values=[
-                [0.7, 0.4],  # P(blood_pressure=0 | diabetes=0) y P(blood_pressure=0 | diabetes=1)
-                [0.3, 0.6],  # P(blood_pressure=1 | diabetes=0) y P(blood_pressure=1 | diabetes=1)
+                [0.7, 0.4],  # P(bp=0 | diabetes=0) y P(bp=0 | diabetes=1)
+                [0.3, 0.6],  # P(bp=1 | diabetes=0) y P(bp=1 | diabetes=1)
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
         )
 
-        # COMPROBAR MODELO
+        # Añadir nuevas CPDs al modelo
         clinical_model.add_cpds(
                 cpd_glucose, cpd_blood_pressure
         )
         
-        # Comprobar la consistencia del modelo
+        # Comprobar modelo
         assert clinical_model.check_model()
 
         return clinical_model # Añadir CPDs para las variables adicionales de glucosa y presión sanguínea

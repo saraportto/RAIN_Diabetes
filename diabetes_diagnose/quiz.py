@@ -1,10 +1,6 @@
 class Quiz:
 
-    def __init__(self):
-        pass
-
-
-    # Bucle para recoger respuestas de INT
+    # Bucle para recoger respuestas de INT (evita errores)
     def get_int_input(self, prompt, options):
         while True:
             try:
@@ -17,7 +13,7 @@ class Quiz:
                 print("Entrada no válida. Por favor ingrese un número.")
 
 
-    # Bucle para recoger respuestas de FLOAT
+    # Bucle para recoger respuestas de FLOAT (evita errores)
     def get_float_input(self, prompt):
         while True:
             try:
@@ -49,15 +45,15 @@ class Quiz:
 
         # Categorizar el BMI según el valor calculado
         if bmi_value < 25:
-            bmi = 0  # Bajo peso / Normal
+            bmi = 0  # bajopeso/normal
         elif 25 <= bmi_value < 30:
-            bmi = 1  # Sobrepeso
+            bmi = 1  # sobrepeso
         else:
-            bmi = 2  # Obesidad
+            bmi = 2  # obesidad
         
-
         pancreas_diseases = self.get_int_input("\n*******************\n❓ ¿Ha padecido alguna enfermedad o lesión grave del páncreas?\n 0 = no\n 1 = si\n>>RESPUESTA ENFERMEDADES PÁNCREAS: ", [0, 1])
         family_history = self.get_int_input("\n*******************\n❓ ¿Hay antecedentes de diabetes en su familia (padre/madre)? \n 0 = no\n 1 = si\n>>RESPUESTA ANTECEDENTES: ", [0, 1])
+
 
         #### SÍNTOMAS ###
         urinate_freq = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente ganas de orinar? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>RESPUESTA FRECUENCIA ORINAR: ", [0, 1, 2])
@@ -69,6 +65,7 @@ class Quiz:
         print("\n*******************\n❓ ¿Ha padecido recientemente o padece alguna de los siguientes?: ", "\n", conseq_diseases)
         sympt_diseases = self.get_int_input("\n 0 = no\n 1 = si\n>>RESPUESTA ENFERMEDADES: ", [0, 1])
 
+        ### RESPUESTAS del quiz ###
         res = {
             'age': age,
             'bmi': bmi,
@@ -85,29 +82,32 @@ class Quiz:
 
         return res
 
-
+    # Hacer QUIZ CLÍNICO
     def do_clinical_quiz(self, initial_res: dict):
+        ### Glucosa
         glucose_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL)\n>>>RESPUESTA GLUCOSA EN SANGRE: ")
 
+        # Categoriza nivel de glucosa
         if glucose_level < 100:
-            glucose = 0  # Normal
+            glucose = 0  # normal
         elif 100 <= glucose_level <= 125:
-            glucose = 1  # Prediabetes
+            glucose = 1  # prediabetes
         else:
-            glucose = 2  # Diabetes
+            glucose = 2  # diabetes
 
-
+        ### Presión sanguínea
         blood_pressure_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de presión sanguínea? (en mmHg)\n>>>RESPUESTA PRESIÓN SANGUÍNEA: ")
 
         # Clasificación de presión sanguínea
         if blood_pressure_level < 120:
-            blood_pressure = 0  # Normal
+            blood_pressure = 0  # normal
         else:
-            blood_pressure = 1  # Hipertensión
+            blood_pressure = 1  # hipertenso
 
-       
+        ### RESPUESTAS del quiz ###
         res = {
             'glucose': glucose,
             'blood_pressure': blood_pressure
         }
+        
         return res
