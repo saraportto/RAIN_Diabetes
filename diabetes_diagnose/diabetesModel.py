@@ -8,8 +8,7 @@ class diabetesModel:
         pass
     
 
-    # Modelo inicial, en base a Red Ba
-    # yesiana 1
+    # Modelo inicial, en base a Red Bayesiana 1
     def create_initial_model(self):
         ### MODELO VACÍO ###
         model = BayesianNetwork()
@@ -48,6 +47,7 @@ class diabetesModel:
 
         # Leer el archivo CSV para las probabilidades de diabetes
         df = pd.read_csv("diabetes_probabilities.csv")
+
 
         # CPD para DIABETES (con el CSV)
         cpd_diabetes = TabularCPD(
@@ -145,123 +145,20 @@ class diabetesModel:
 
     #aqui añadi lo mismo de lo anterior pero para glucosa y presion sanfuiena, se reite 2 veces
     def create_clinical_model(self):
-        clinical_model = BayesianNetwork()
+        clinical_model = self.create_initial_model()
 
-        nodes = ['age', 'bmi', 'pancreas_diseases', 'family_history', 
-            'diabetes', 
-            'urinate_freq', 'thirst', 'fatigue', 'hunger', 'weight_loss', 'sympt_diseases',
-            'glucose', 'blood_pressure']
-        
+        # Añadir los nodos de glucosa y presión arterial
+        nodes =['glucose', 'blood_pressure']
         clinical_model.add_nodes_from(nodes)
 
-        edges = [
-            ('age', 'diabetes'), 
-            ('bmi', 'diabetes'), 
-            ('pancreas_diseases', 'diabetes'), 
-            ('family_history', 'diabetes'), 
-            ('diabetes', 'urinate_freq'), 
-            ('diabetes', 'thirst'), 
-            ('diabetes', 'fatigue'), 
-            ('diabetes', 'hunger'), 
-            ('diabetes', 'weight_loss'), 
-            ('diabetes', 'sympt_diseases'),
-            ('diabetes', 'glucose'),  # Relación entre diabetes y glucosa
-            ('diabetes', 'blood_pressure')  # Relación entre diabetes y presión sanguínea
-        ]
+        # Añadir arcos
+        edges = [('diabetes', 'glucose'),  # Relación entre diabetes y glucosa
+                 ('diabetes', 'blood_pressure')  # Relación entre diabetes y presión sanguínea
+                ]
         clinical_model.add_edges_from(edges)
         
-        ### Añadir CPDs al modelo###
-        
-        # Probabilidades a priori de FACTORES DE RIESGO (a priori)
-        cpd_age = TabularCPD(variable='age', variable_card=2, values=[[0.6], [0.4]])
-        cpd_bmi = TabularCPD(variable='bmi', variable_card=3, values=[[0.55], [0.37], [0.08]])
-        cpd_pancreas_diseases = TabularCPD(variable='pancreas_diseases', variable_card=2, values=[[0.99], [ 0.01]])
-        cpd_family_history = TabularCPD(variable='family_history', variable_card=2, values=[[0.8], [0.2]])
-
-        # Leer el archivo CSV para las probabilidades de diabetes
-        df = pd.read_csv("diabetes_probabilities.csv")
-        
-        # CPD para DIABETES (con el CSV)
-        cpd_diabetes= TabularCPD(
-            variable='diabetes', 
-            variable_card=2,
-            values=df[['prob_diabetes_0', 'prob_diabetes_1']].values.T.tolist(),
-            evidence=['age', 'bmi', 'pancreas_diseases', 'family_history', 'glucose', 'blood_pressure'],
-            evidence_card=[2, 3, 2, 2, 3, 2]
-        )
-
-        # CPD para SÍNTOMAS
-        cpd_urinate_freq = TabularCPD(
-            variable='urinate_freq', 
-            variable_card=3, 
-            values=[
-                [0.6, 0.2],  # P(urinate_freq=0 | diabetes=0) y P(urinate_freq=0 | diabetes=1)
-                [0.3, 0.3],  # P(urinate_freq=1 | diabetes=0) y P(urinate_freq=1 | diabetes=1)
-                [0.1, 0.5]   # P(urinate_freq=2 | diabetes=0) y P(urinate_freq=2 | diabetes=1)
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        cpd_thirst = TabularCPD(
-            variable='thirst', 
-            variable_card=3, 
-            values=[
-                [0.7, 0.3],  
-                [0.2, 0.4],  
-                [0.1, 0.3]   
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        cpd_fatigue = TabularCPD(
-            variable='fatigue', 
-            variable_card=3, 
-            values=[
-                [0.5, 0.2],  
-                [0.3, 0.3],  
-                [0.2, 0.5]   
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        cpd_hunger = TabularCPD(
-            variable='hunger', 
-            variable_card=3, 
-            values=[
-                [0.6, 0.3],  
-                [0.3, 0.4],  
-                [0.1, 0.3]   
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        cpd_weight_loss = TabularCPD(
-            variable='weight_loss', 
-            variable_card=2, 
-            values=[
-                [0.8, 0.3],  
-                [0.2, 0.7]   
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        cpd_sympt_diseases = TabularCPD(
-            variable='sympt_diseases', 
-            variable_card=2, 
-            values=[
-                [0.9, 0.4],  
-                [0.1, 0.6]   
-            ],
-            evidence=['diabetes'], 
-            evidence_card=[2]
-        )
-
-        
+        # Añadir CPDs restantes
+        # CPD glucosa en sangre    
         cpd_glucose = TabularCPD(
             variable='glucose', 
             variable_card=3, 
@@ -281,20 +178,13 @@ class diabetesModel:
             values=[
                 [0.7, 0.4],  # P(blood_pressure=0 | diabetes=0) y P(blood_pressure=0 | diabetes=1)
                 [0.3, 0.6],  # P(blood_pressure=1 | diabetes=0) y P(blood_pressure=1 | diabetes=1)
-                
             ],
             evidence=['diabetes'], 
             evidence_card=[2]
         )
 
-        # Añadir CPDs previos y nuevos al modelo
-        # Aquí debes añadir los CPDs previos del modelo inicial o recrearlos para el modelo clínico completo
-
         # COMPROBAR MODELO
         clinical_model.add_cpds(
-                cpd_age, cpd_bmi, cpd_pancreas_diseases, cpd_family_history, 
-                cpd_diabetes, 
-                cpd_urinate_freq, cpd_thirst, cpd_fatigue, cpd_hunger, cpd_weight_loss, cpd_sympt_diseases,
                 cpd_glucose, cpd_blood_pressure
         )
         

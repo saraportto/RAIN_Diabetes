@@ -1,5 +1,5 @@
 from pgmpy.inference import VariableElimination
-# import pandas as pd
+#import pandas as pd
 
 class diabetesInference:
    
@@ -21,7 +21,7 @@ class diabetesInference:
 
         # Combinar respuestas y claves
         evidence = dict(zip(evidence_keys, evidence_vals))
-        print("Evidencia para inferencia:", evidence)
+        #print("Evidencia para inferencia:", evidence)
 
         ### INFERENCIA ###
         resultado = self.inference.query(variables=['diabetes'], evidence=evidence)
