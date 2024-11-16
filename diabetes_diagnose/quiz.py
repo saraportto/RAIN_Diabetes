@@ -31,7 +31,7 @@ class Quiz:
         )
 
         ### FACTORES DE RIESGO ###
-        age_res = self.get_float_input("\n*******************\n❓ ¿Cuál es su edad? \n 0 = menos de 45 años\n 1 = 45 años o más\n>>RESPUESTA EDAD: ")
+        age_res = self.get_float_input("\n*******************\n❓ ¿Cuál es su edad?\n>>RESPUESTA EDAD: ")
 
         if age_res < 45:
             age = 0

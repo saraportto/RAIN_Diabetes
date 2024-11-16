@@ -21,23 +21,24 @@ if __name__ == '__main__':
     prob_diabetes_inicial = inference.inference_example(evidence)
 
     print("\n\n-----------------------------------")
-    print("PROBABILIDAD DE TENER DIABETES:\n", prob_diabetes_inicial)
+    print(f"PROBABILIDAD DE TENER DIABETES:\n {prob_diabetes_inicial*100:.4f} %")
     print("-----------------------------------")
 
     ### SEGUNDA PARTE del diagnóstico (añadiendo test clínico) ###
     if prob_diabetes_inicial > 0.3:
 
         time.sleep(1)
-        print("\nLos resultados del cuestionario que hay una probabilidad considerable de tener diabetes.")
+        print("\nLos resultados del cuestionario indican que existe una probabilidad considerable de que tenga diabetes.")
         print("Es necesario hacer un examen médico.\n")
 
-        time.sleep(0.2)
+        time.sleep(0.3)
         print("Recogiendo muestras", end="")
 
         for _ in range(3):
             print(".", end="", flush=True)
             time.sleep(0.5)
         print("\n")
+
 
         # QUIZ clínico
         clinical_res = quiz.do_clinical_quiz(res)
@@ -55,7 +56,7 @@ if __name__ == '__main__':
         prob_diabetes_final = clinical_inference.inference_example(complete_evidence)
         
         print("\n\n-----------------------------------")
-        print("PROBABILIDAD DE TENER DIABETES\n(con el test clínico):\n", prob_diabetes_final)    
+        print(f"PROBABILIDAD DE TENER DIABETES\n(con el test clínico):\n {prob_diabetes_final*100:.4f} %")
         print("-----------------------------------")
 
     else: # Si la probabilidad de tener diabetes no es significativa

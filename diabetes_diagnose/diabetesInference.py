@@ -70,7 +70,7 @@ class diabetesInference:
             #print(f"Fila {index + 1}: Probabilidad de diabetes: {diabetes_probability}")
 
             # Añadir prob a la lista
-            diabetes_probabilities.append(diabetes_probability)
+            diabetes_probabilities.append(f"{diabetes_probability*100:.4f} %")
 
         ## GUARDAR EN NUEVO CSV
         # Añadir columna diabetes con la lista de probabilidades
