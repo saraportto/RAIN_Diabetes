@@ -23,7 +23,7 @@ if __name__ == '__main__':
     print("\n\n-----------------------------------")
     print(f"PROBABILIDAD DE TENER DIABETES:\n {prob_diabetes_inicial*100:.4f} %")
     print("-----------------------------------")
-
+    
     ### SEGUNDA PARTE del diagnóstico (añadiendo test clínico) ###
     if prob_diabetes_inicial > 0.3:
 
