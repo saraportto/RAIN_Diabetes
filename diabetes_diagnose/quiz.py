@@ -26,7 +26,7 @@ class Quiz:
     # Hacer QUIZ INICIAL
     def do_initial_quiz(self):
         conseq_diseases = (
-            "*Hipertensión\n *Visión borrosa, cuerpos flotantes en la vista, zonas de visión oscura o pérdida de la capacidad visual\n "
+            "*Visión borrosa, cuerpos flotantes en la vista, zonas de visión oscura o pérdida de la capacidad visual\n "
             "*Patologías cardiovasculares\n *Apnea del sueño\n *Afecciones de la piel (Infecciones cutáneas, acantosis pigmentaria, necrobiosis lipoídica)\n"
         )
 
