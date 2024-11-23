@@ -60,7 +60,7 @@ class Quiz:
         thirst = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente ganas de beber agua? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA FRECUENCIA BEBER: ", [0, 1, 2])
         fatigue = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente fatiga? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA FATIGA: ", [0, 1, 2])
         hunger = self.get_int_input("\n*******************\n❓ ¿Con qué frecuencia siente hambre? \n 0 = frecuencia baja\n 1 = frecuencia normal\n 2 = frecuencia alta\n>>>RESPUESTA HAMBRE: ", [0, 1, 2])
-        weight_loss = self.get_int_input("\n*******************\n❓ ¿Ha tenido alguna pérdida de peso inexplicada recientente? \n 0 = no\n 1 = si\n>>RESPUESTA PÉRDIDA DE PESO: ", [0, 1])
+        weight_loss = self.get_int_input("\n*******************\n❓ ¿Ha tenido alguna pérdida de peso inexplicada recientemente? \n 0 = no\n 1 = si\n>>RESPUESTA PÉRDIDA DE PESO: ", [0, 1])
 
         print("\n*******************\n❓ ¿Ha padecido recientemente o padece alguna de los siguientes?: ", "\n", conseq_diseases)
         sympt_diseases = self.get_int_input("\n 0 = no\n 1 = si\n>>RESPUESTA ENFERMEDADES: ", [0, 1])
@@ -83,15 +83,15 @@ class Quiz:
         return res
 
     # Hacer QUIZ CLÍNICO
-    def do_clinical_quiz(self, initial_res: dict):
-        
+    def do_clinical_quiz(self):
+
         ### Glucosa
-        glucose_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL)\n>>>RESPUESTA GLUCOSA EN SANGRE: ")
+        glucose_level = self.get_float_input("\n*******************\n💊 ¿Cuál es su nivel de glucosa en sangre en la medición realizada? (en mg/dL)\n>>>RESPUESTA GLUCOSA EN SANGRE: ")
 
         # Categoriza nivel de glucosa
         if glucose_level < 100:
             glucose = 0  # normal
-        elif 100 <= glucose_level <= 125:
+        elif 100 <= glucose_level < 125:
             glucose = 1  # prediabetes
         else:
             glucose = 2  # diabetes

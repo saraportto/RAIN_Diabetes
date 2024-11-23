@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
 
         # QUIZ clínico
-        clinical_res = quiz.do_clinical_quiz(res)
+        clinical_res = quiz.do_clinical_quiz()
         #print("Resultados del quiz clínico:", clinical_res)
 
         # Crear el MODELO CLÍNICO 
