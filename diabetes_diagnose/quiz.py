@@ -20,7 +20,7 @@ class Quiz:
                 value = float(input(prompt))
                 return value
             except ValueError:
-                print("Entrada no válida. Por favor ingrese un número decimal (Recuerde introducirlo con . y no con ,).")
+                print("Entrada no válida. Por favor ingrese un número decimal distinto de 0 (Recuerde introducirlo con . y no con ,).")
 
 
     # Hacer QUIZ INICIAL
@@ -39,7 +39,13 @@ class Quiz:
             age = 1
 
         weight = self.get_float_input("\n*******************\n❓ ¿Cuál es su peso? (en kg): ")
-        height = self.get_float_input("\n*******************\n❓ ¿Cuál es su altura? (en cm): ")
+
+        # Compprobación para que la altura no sea 0
+        while True:
+            height = self.get_float_input("\n*******************\n❓ ¿Cuál es su altura? (en cm): ")
+            if height > 0:
+                break
+            print("La altura no puede ser 0. Por favor, introduzca un valor válido.")        
         
         bmi_value = weight / ((height / 100) ** 2)
 
