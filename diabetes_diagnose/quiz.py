@@ -84,6 +84,7 @@ class Quiz:
 
     # Hacer QUIZ CLÍNICO
     def do_clinical_quiz(self, initial_res: dict):
+        
         ### Glucosa
         glucose_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de glucosa en sangre? (en mg/dL)\n>>>RESPUESTA GLUCOSA EN SANGRE: ")
 
@@ -95,14 +96,17 @@ class Quiz:
         else:
             glucose = 2  # diabetes
 
+
         ### Presión sanguínea
-        blood_pressure_level = self.get_float_input("\n*******************\n💊 ¿Cuánto ha dado la medición de presión sanguínea? (en mmHg)\n>>>RESPUESTA PRESIÓN SANGUÍNEA: ")
+        systolic = self.get_float_input("\n*******************\n💊 ¿Cuál ha sido su medición de presión sistólica (número superior)? (en mmHg): ")
+        diastolic = self.get_float_input("\n💊 ¿Cuál ha sido su medición de presión diastólica (número inferior)? (en mmHg): ")
 
         # Clasificación de presión sanguínea
-        if blood_pressure_level < 120:
-            blood_pressure = 0  # normal
+        if systolic < 130 and diastolic < 80:
+            blood_pressure = 0 # normal
         else:
-            blood_pressure = 1  # hipertenso
+            blood_pressure = 1 # hipertenso
+
 
         ### RESPUESTAS del quiz ###
         res = {

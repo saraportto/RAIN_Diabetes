@@ -6,6 +6,16 @@ import time
 
 if __name__ == '__main__':
 
+    print("\n👋Hola! Bienvenido a la prueba de diagnístico para la diabetes")
+
+    time.sleep(0.3)
+    print("Comenzando test", end="")
+
+    for _ in range(3):
+        print(".", end="", flush=True)
+        time.sleep(0.5)
+    print("\n")
+
     ### Parte INICIAL del diagnóstico (basado en síntomas y factores de riesgo) ###
     # QUIZ inicial
     quiz = Quiz()

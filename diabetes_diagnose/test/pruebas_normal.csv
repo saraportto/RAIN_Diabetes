@@ -1,0 +1,8 @@
+age,bmi,pancreas_diseases,family_history,urinate_freq,thirst,fatigue,hunger,weight_loss,sympt_diseases
+0,2,0,1,1,1,2,0,1,0
+0,2,0,0,1,1,2,0,1,0
+0,2,0,1,0,1,2,0,1,0
+0,1,0,1,1,1,2,0,1,0
+0,1,0,1,1,0,2,1,1,0
+0,1,0,1,1,1,1,1,1,0
+1,0,0,0,1,2,1,1,0,1
