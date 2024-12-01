@@ -7,8 +7,8 @@ if __name__ == '__main__':
     ### DESCOMENTAR el filename con el nombre del fichero a utilizar
     #filename = "test/test_normal.csv"
     #filename = "test/test_clinico.csv"
-    #filename = "test/pruebas_normal.csv"
-    filename = "test/pruebas_clinico.csv"
+    filename = "test/pruebas_normal.csv"
+    #filename = "test/pruebas_clinico.csv"
 
     # LEER datos del CSV
     data = pd.read_csv(filename)

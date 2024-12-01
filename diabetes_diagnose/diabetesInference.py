@@ -42,26 +42,24 @@ class diabetesInference:
 
         # Lista que almacena probabilidades de diabetes
         diabetes_probabilities = []   
+
+        # Columnas según el tipo de csv
+        base_columns = [
+            'age', 'bmi', 'pancreas_diseases', 'family_history', 
+            'urinate_freq', 'thirst', 'fatigue', 'hunger', 
+            'weight_loss', 'sympt_diseases'
+        ]
+
+        clinical_columns = ['glucose', 'blood_pressure'] if is_clinical else []
+
+        required_columns = base_columns + clinical_columns
+
         
         # Por cada fila, sacar la evidence
         for index, row in data.iterrows():
-            evidence = {
-                'age': row['age'], 
-                'bmi': row['bmi'], 
-                'pancreas_diseases': row['pancreas_diseases'],
-                'family_history': row['family_history'], 
-                'urinate_freq': row['urinate_freq'], 
-                'thirst': row['thirst'], 
-                'fatigue': row['fatigue'], 
-                'hunger': row['hunger'], 
-                'weight_loss': row['weight_loss'], 
-                'sympt_diseases': row['sympt_diseases']
-            }
 
-            # Añadir datos clínicos si el csv es clínico
-            if is_clinical:
-                evidence['glucose'] = row['glucose']
-                evidence['blood_pressure'] = row['blood_pressure']
+            # Evidencia
+            evidence = {col: row[col] for col in required_columns}
 
             ### INFERENCIA ###
             resultado = self.inference.query(variables=['diabetes'], evidence=evidence)
@@ -71,6 +69,7 @@ class diabetesInference:
 
             # Añadir prob a la lista
             diabetes_probabilities.append(f"{diabetes_probability*100:.4f} %")
+
 
         ## GUARDAR EN NUEVO CSV
         # Añadir columna diabetes con la lista de probabilidades
