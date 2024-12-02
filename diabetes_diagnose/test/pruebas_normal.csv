@@ -23,4 +23,7 @@ solo thirst,0,0,0,0,0,2,0,0,0,0
 solo fatigue,0,0,0,0,0,0,2,0,0,0
 solo hunger,0,0,0,0,0,0,0,2,0,0
 solo weight_loss,0,0,0,0,0,0,0,0,1,0
-solo sympt_diseases,0,0,0,0,0,0,0,0,0,1
+solo sympt_diseases,0,0,0,0,0,0,0,0,0,1 
+
+adan,0,1,0,0,2,1,1,1,0,1
+caso_real,1,0,0,1,2,2,2,0,1,0
