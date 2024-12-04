@@ -6,21 +6,43 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-echo "Actualizando lista de paquetes..."
-sudo apt update && sudo apt upgrade -y
+# Actualizar el sistema
+echo "Actualizando el sistema..."
+sudo apt update -y && sudo apt upgrade -y
 
-echo "Instalando Python 3.11..."
-sudo apt install -y python3.11 python3.11-venv python3.11-dev
+# Verifica si conda está instalado
+if ! command -v conda &> /dev/null; then
+  echo "Conda no está instalado. Instalándolo ahora..."
 
-echo "Configurando Python 3.11 como predeterminado..."
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
-sudo update-alternatives --set python3 /usr/bin/python3.11
+  # Descarga el instalador de Miniconda
+  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 
-echo "Instalando pip para Python 3.11..."
-sudo apt install -y python3-pip
+  # Ejecuta el instalador de Miniconda
+  bash miniconda.sh -b -p $HOME/miniconda
 
-echo "Instalando bibliotecas necesarias: pgmpy, pandas, y time..."
-pip install pgmpy pandas time
+  # Añade Conda al PATH temporalmente para este script
+  export PATH="$HOME/miniconda/bin:$PATH"
 
-echo "¡Instalación completada!"
+  # Inicializa conda
+  conda init
+  source ~/.bashrc
 
+  echo "Conda instalado correctamente."
+else
+  echo "Conda ya está instalado."
+fi
+
+# Crea un entorno conda llamado "diabetes"
+echo "Creando el entorno 'diabetes'..."
+conda create --name diabetes python=3.11 -y
+
+# Activa el entorno "diabetes"
+echo "Activando el entorno 'diabetes'..."
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate diabetes
+
+# Instala las bibliotecas necesarias
+echo "Instalando bibliotecas: pgmpy y pandas..."
+pip install pgmpy pandas
+
+echo "¡Entorno 'diabetes' configurado correctamente con Python, pgmpy y pandas!"
