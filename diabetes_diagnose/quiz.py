@@ -49,6 +49,8 @@ class Quiz:
         
         bmi_value = weight / ((height / 100) ** 2)
 
+        print(f"\n*******************\n\nSu IMC es de {bmi_value:.2f}")
+
         # Categorizar el BMI según el valor calculado
         if bmi_value < 25:
             bmi = 0  # bajopeso/normal

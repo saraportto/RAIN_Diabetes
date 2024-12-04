@@ -9,6 +9,7 @@ if __name__ == '__main__':
     #filename = "test/test_clinico.csv"
     #filename = "test/pruebas_normal.csv"
     filename = "test/pruebas_clinico.csv"
+    filename = "test/pruebita.csv"
 
     # LEER datos del CSV
     data = pd.read_csv(filename)
