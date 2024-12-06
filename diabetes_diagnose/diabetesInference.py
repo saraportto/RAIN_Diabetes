@@ -73,7 +73,13 @@ class diabetesInference:
 
         ## GUARDAR EN NUEVO CSV
         # Añadir columna diabetes con la lista de probabilidades
-        data['diabetes'] = diabetes_probabilities
+        data['diabetes_prob'] = diabetes_probabilities
+
+        # Añadir columna DIABETES con SI/NO según la probabilidad
+        if is_clinical:
+            data['DIABETES'] = data['diabetes_prob'].apply(lambda x: 'SI' if float(x.replace(' %', '')) > 50 else 'NO')
+        else:
+            data['DIABETES'] = data['diabetes_prob'].apply(lambda x: 'SI' if float(x.replace(' %', '')) > 30 else 'NO')
 
         new_filename = filename.replace('.csv', '_solved.csv')
 

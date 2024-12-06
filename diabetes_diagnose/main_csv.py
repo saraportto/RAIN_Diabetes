@@ -5,11 +5,10 @@ import pandas as pd
 if __name__ == '__main__':
     
     ### DESCOMENTAR el filename con el nombre del fichero a utilizar
-    #filename = "test/test_normal.csv"
-    #filename = "test/test_clinico.csv"
-    #filename = "test/pruebas_normal.csv"
-    filename = "test/pruebas_clinico.csv"
-    filename = "test/pruebita.csv"
+    #filename = 'test/normal.csv'
+    filename = 'test/clinico.csv'
+    #filename = 'test/z_more_normal.csv'
+    #filename = 'test/z_more_clinical.csv'
 
     # LEER datos del CSV
     data = pd.read_csv(filename)

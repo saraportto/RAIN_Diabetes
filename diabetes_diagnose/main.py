@@ -69,5 +69,11 @@ if __name__ == '__main__':
         print(f"PROBABILIDAD DE TENER DIABETES\n(con el test clínico):\n {prob_diabetes_final*100:.4f} %")
         print("-----------------------------------")
 
+        if prob_diabetes_final > 0.5:
+            print("\nLa probabilidad de padecer diabates es alta.\nEs recomendable que visite a su médico para un diagnóstico más preciso.")
+
+        else:
+            print("\nLa probabilidad de padecer diabates es baja.\nNo es necesario hacer más pruebas.")
+
     else: # Si la probabilidad de tener diabetes no es significativa
         print ("\nLa probabilidad de que tenga diabetes es baja, no es necesario hacer ningún test clínico.")
